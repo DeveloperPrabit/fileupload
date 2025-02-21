@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #007bff;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #007bff;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .tab i {
+            margin-right: 8px;
+        }
+        
+        .tab:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid #007bff;
+            background-color: #f0f8ff;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .content {
+            display: none;
+        }
+        
+        .content.active {
+            display: block;
+        }
+
+        iframe, img {
+            width: 100%;
+            height: 500px;
+            border: none;
+            margin-top: 20px;
+        }
+        .logo {
+            position: absolute;
+            top: 5px; /* Moves it even closer to the top */
+            left: 10px; /* Ensures no extra left padding */
+        }
+        
+        .logo img {
+            width: 100px; /* Adjust size as needed */
+            height: 100px; /* Keep it equal for a perfect circle */
+            border-radius: 50%; /* Makes it round */
+            object-fit: cover; /* Ensures it fills the round shape properly */
+            display: block;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+          }
+      
+        
+
+        .highlight-link {
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            padding: 3px 5px;
+            border-radius: 3px;
+        }
+        
+        .highlight-link:hover {
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    {% comment %} <div class="logo">
+        <a href="/">
+          <img src="http://127.0.0.1:8000/media/uploads/frt-removebg-preview.png" alt="Nagarik Badapatra Logo">
+        </a>
+      </div> {% endcomment %}
+
+    <div class="container">
+        {% comment %} <h1>{{ page.title }}</h1> {% endcomment %}
+        <div class="tabs">
+            <div class="tab active" id="pdf-tab">
+                <i class="fa fa-file-pdf"></i> PDF
+            </div>
+            <div class="tab" id="image-tab">
+                <i class="fa fa-image"></i> Image
+            </div>
+            <div class="dropdown">
+                <button class="tab">
+                    <i class="fa fa-download"></i> Download
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" id="download-pdf">Download as PDF</a>
+                    <a href="#" id="download-image">Download as Image</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content active" id="pdf-content">
+            {% for file in page.files.all %}
+                {% with file.file.url|lower as file_url %}
+                    {% if file_url|slice:"-4:" == ".pdf" %}
+                        <object data="{{ file.file.url }}" type="application/pdf" width="100%" height="500px">
+                            <p class="highlight-link">Your browser does not support PDFs. 
+                                <a href="{{ file.file.url }}" target="_blank" class="highlight-link">View PDF</a> 
+                                or <a href="{{ file.file.url }}" download class="highlight-link">Download the PDF</a>.
+                            </p>
+                        </object>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+        
+        <div class="content" id="image-content">
+            {% for file in page.files.all %}
+                {% with file.file.url|lower as file_url %}
+                    {% if file_url|slice:"-4:" == ".jpg" or file_url|slice:"-4:" == ".png" or file_url|slice:"-5:" == ".jpeg" %}
+                        <img src="{{ file.file.url }}" alt="{{ file.file.name }}">
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script>
+        const pdfTab = document.getElementById('pdf-tab');
+        const imageTab = document.getElementById('image-tab');
+        const pdfContent = document.getElementById('pdf-content');
+        const imageContent = document.getElementById('image-content');
+
+        pdfTab.addEventListener('click', function() {
+            pdfTab.classList.add('active');
+            imageTab.classList.remove('active');
+            pdfContent.classList.add('active');
+            imageContent.classList.remove('active');
+        });
+
+        imageTab.addEventListener('click', function() {
+            imageTab.classList.add('active');
+            pdfTab.classList.remove('active');
+            imageContent.classList.add('active');
+            pdfContent.classList.remove('active');
+        });
+
+        const downloadPdfBtn = document.getElementById('download-pdf');
+        const downloadImageBtn = document.getElementById('download-image');
+
+        downloadPdfBtn.addEventListener('click', function() {
+            const pdfFileUrl = pdfContent.querySelector('object').data;
+            const link = document.createElement('a');
+            link.href = pdfFileUrl;
+            link.download = pdfFileUrl.split('/').pop(); // This sets the downloaded file name as the original file name
+            link.click(); // Trigger the download
+        });
+
+        downloadImageBtn.addEventListener('click', function() {
+            const imageFileUrl = imageContent.querySelector('img').src;
+            const link = document.createElement('a');
+            link.href = imageFileUrl;
+            link.download = imageFileUrl.split('/').pop(); // This sets the downloaded file name as the original file name
+            link.click(); // Trigger the download
+        });
+    </script>
+
+    <footer>
+        Copyright © 2025 Nagarik Badapatra Nepal. All Rights Reserved.
+      </footer>
+</body>
+</html>

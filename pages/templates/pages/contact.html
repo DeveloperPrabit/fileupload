@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Nagarik Badapatra Nepal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure footer is pushed to the bottom */
+    }
+    .contact-info {
+      padding: 50px;
+      text-align: center;
+      background-color: #2c3e50;
+      color: white;
+    }
+    .contact-info h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .contact-info p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+    .contact-info a {
+      text-decoration: none; /* Remove underline */
+      color: #3498db; /* Change link color */
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      display: inline-block;
+    }
+    .contact-info a:hover {
+      background-color: #2980b9; /* Change background on hover */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    .logo {
+      display: inline-block;
+      margin: 20px;
+    }
+    .logo img {
+      max-height: 50px;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="/">
+        <img src="http://127.0.0.1:8000/media/uploads/frt-removebg-preview.png" alt="Nagarik Badapatra Logo">
+      </a>
+    </div>
+  </header>
+
+  <div class="contact-info">
+    <h2>Contact Us</h2>
+    <p>Name: Prabit Joshi</p>
+    <p>Email: <a href="mailto:prabitjoshi@gmail.com">prabitjoshi@gmail.com</a></p>
+    <p>Contact: 9761660142</p>
+    <p>WhatsApp/Call: <a href="tel:+9779761660142">9761660142</a></p>
+  </div>
+
+  <footer>
+    Copyright © 2025 Nagarik Badapatra Nepal. All Rights Reserved.
+  </footer>
+
+</body>
+</html>
+
+<ul>
+    {% for page in pages %}
+      <li><a href="{% url 'page_detail' slug=page.slug %}">{{ page.title }}</a></li>
+    {% endfor %}
+  </ul>
