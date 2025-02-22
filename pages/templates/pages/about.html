@@ -1,10 +1,9 @@
-<!-- templates/pages/home.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Based Digital Nagarik Badapatra Nepal</title>
+  <title>About Us - Nagarik Badapatra Nepal</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* General Styling */
@@ -15,19 +14,14 @@
       background: #f9f9f9;
       color: #333;
       animation: fadeIn 1.5s ease-in-out;
-      padding-bottom: 50px; /* Add padding at the bottom to prevent content overlap */
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    /* Header Section */
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
@@ -62,69 +56,62 @@
       color: #ffcc00;
     }
 
-    /* Welcome Section */
-    .welcome-section {
-      text-align: center;
-      padding: 100px 20px;
-      background-color: white;
-      color: black;
-      animation: slideIn 1s ease-in-out;
-    }
-
-    .welcome-section h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .welcome-section p {
-      font-size: 1.5rem;
-      animation: fadeIn 3s ease-in-out;
-    }
-
-    /* Site Title Section */
-    .site-title {
-      text-align: center;
+    /* Box Model */
+    .content-box {
+      max-width: 600px;
+      margin: 50px auto;
+      background: white;
       padding: 20px;
-      font-size: 1.5rem;
-      background-color: #ecf0f1;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      animation: fadeInUp 1.5s ease-in-out;
     }
 
-    /* Footer Section */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-box h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .content-box p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .about-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 15px;
+      max-height: 200px; /* Small size fit */
+    }
+
+    /* Footer */
     footer {
       background-color: red;
       color: white;
-      padding: 10px 0;
       text-align: center;
+      padding: 10px;
       position: fixed;
       bottom: 0;
       width: 100%;
     }
 
-    /* Animation Keyframes */
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Responsive Design */
+    /* Responsive */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
         text-align: center;
       }
-
       nav ul {
         flex-direction: column;
         align-items: center;
       }
-
       nav ul li {
         margin: 10px 0;
       }
@@ -134,24 +121,24 @@
 <body>
   <header>
     <div class="logo">
-      <a href="/">
-        <img src="http://127.0.0.1:8000/media/uploads/frt-removebg-preview.png" alt="Nagarik Badapatra Logo">
-      </a>
+      <a href="/"><img src="http://127.0.0.1:8000/media/uploads/frt-removebg-preview.png" alt="Nagarik Badapatra Logo"></a>
     </div>
     
     <nav>
       <ul>
-        <li><a href="https://forms.gle/BzW8JQUfahtb9to27" target="_blank">Order Now</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/contact/">Contact Us</a></li>
         <li><a href="/about/">About Us</a></li> 
-
       </ul>
     </nav>
   </header>
 
-  <div class="welcome-section">
-    <h1>Welcome to Nagarik Badapatra Nepal</h1>
-    <p>Providing efficient digital solutions through QR Code Technology</p>
+  <div class="content-box">
+    <h1>{{ about.title }}</h1>
+    <p>{{ about.description }}</p>
+    {% if about.image %}
+      <img src="{{ about.image.url }}" alt="About Image" class="about-image">
+    {% endif %}
   </div>
 
   <footer>
@@ -159,9 +146,3 @@
   </footer>
 </body>
 </html>
-
-<ul>
-  {% for page in pages %}
-    <li><a href="{% url 'page_detail' slug=page.slug %}">{{ page.title }}</a></li>
-  {% endfor %}
-</ul>

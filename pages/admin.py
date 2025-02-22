@@ -3,6 +3,9 @@ from django.contrib import admin
 from .models import Page, File
 
 from .models import ContactInfo
+from .models import AboutUs
+
+admin.site.register(AboutUs)
 
 admin.site.register(ContactInfo)
 

@@ -2,6 +2,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Page
 from .models import ContactInfo
+from .models import AboutUs  # Import the model that holds About Us content
+
+def about(request):
+    about_data = AboutUs.objects.first()  # Fetch first entry or modify logic if needed
+    return render(request, "pages/about.html", {"about": about_data})
 
 
 def contact_view(request):
