@@ -8,76 +8,104 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      color: #333;
+      background: #f4f4f4; /* Changed body background to light gray */
+      color: black;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* Ensure footer is pushed to the bottom */
+      min-height: 100vh;
+      justify-content: flex-start; /* Align content to top */
     }
-    .contact-info {
-      padding: 50px;
-      text-align: center;
-      background-color: #2c3e50;
-      color: white;
+
+    header {
+      background-color: red;
+      padding: 10px 0;
     }
+
+    .logo {
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .logo img {
+      max-height: 50px;
+    }
+
+    .contact-info-container {
+      width: 80%; /* Set a width for the box */
+      max-width: 600px; /* Optional: to avoid the box becoming too wide */
+      padding: 20px;
+      text-align: left;
+      background-color: white;
+      color: black;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      margin: 95px auto; /* Center the box horizontally */
+    }
+
     .contact-info h2 {
       font-size: 2rem;
       margin-bottom: 20px;
+      text-align: center;
     }
+
     .contact-info p {
       font-size: 1.2rem;
       margin: 10px 0;
+      line-height: 1.5;
+      word-wrap: break-word;
+      font-weight: normal;
+      text-transform: capitalize;
     }
-    .contact-info a {
-      text-decoration: none; /* Remove underline */
-      color: #3498db; /* Change link color */
+
+    .contact-info p span {
       font-weight: bold;
-      padding: 10px;
+    }
+
+    .contact-info a {
+      text-decoration: none;
+      color: #3498db;
+      font-weight: normal;
+      padding: 5px;
       border-radius: 5px;
       transition: background-color 0.3s, box-shadow 0.3s;
-      display: inline-block;
     }
+
     .contact-info a:hover {
-      background-color: #2980b9; /* Change background on hover */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
+      background-color: #2980b9;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+
     footer {
-      background-color: #333;
+      background-color: red;
       color: white;
-      padding: 10px 0;
+      padding: 20px 11px;
       text-align: center;
       position: fixed;
       bottom: 0;
       width: 100%;
     }
-    .logo {
-      display: inline-block;
-      margin: 20px;
-    }
-    .logo img {
-      max-height: 50px;
-    }
   </style>
-  
 </head>
 <body>
 
   <header>
     <div class="logo">
       <a href="/">
-        <img src="http://127.0.0.1:8000/media/uploads/frt-removebg-preview.png" alt="Nagarik Badapatra Logo">
+        <img src="{{ contact.logo.url }}" alt="Nagarik Badapatra Logo">
       </a>
     </div>
   </header>
 
-  <div class="contact-info">
-    <h2>Contact Us</h2>
-    <p>Name: Prabit Joshi</p>
-    <p>Email: <a href="mailto:prabitjoshi@gmail.com">prabitjoshi@gmail.com</a></p>
-    <p>Contact: 9761660142</p>
-    <p>WhatsApp/Call: <a href="tel:+9779761660142">9761660142</a></p>
+  <div class="contact-info-container">
+    <div class="contact-info">
+      <h2>Contact Us</h2>
+      <p>Name: {{ contact.name }}</p>
+      <p>Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+      <p>Contact: {{ contact.phone }}</p>
+      <p>WhatsApp/Call: <a href="tel:+977{{ contact.whatsapp }}">{{ contact.whatsapp }}</a></p>
+    </div>
   </div>
 
   <footer>
@@ -86,9 +114,3 @@
 
 </body>
 </html>
-
-<ul>
-    {% for page in pages %}
-      <li><a href="{% url 'page_detail' slug=page.slug %}">{{ page.title }}</a></li>
-    {% endfor %}
-  </ul>

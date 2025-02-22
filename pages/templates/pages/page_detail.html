@@ -17,7 +17,7 @@
             align-items: center;
             min-height: 100vh;
         }
-        
+
         .container {
             background: white;
             padding: 20px;
@@ -25,37 +25,37 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 800px;
             width: 90%;
+            text-align: center;
         }
-        
-        h1 {
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-        
+
         .tabs {
             display: flex;
+            justify-content: space-around;
             border-bottom: 2px solid #007bff;
             margin-bottom: 20px;
+            padding-bottom: 10px;
         }
-        
+
         .tab {
-            padding: 10px 20px;
+            padding: 15px 25px;
             cursor: pointer;
             font-weight: bold;
             color: #007bff;
             transition: background-color 0.3s ease;
             display: flex;
+            flex-direction: column;
             align-items: center;
+            gap: 5px;
         }
 
         .tab i {
-            margin-right: 8px;
+            font-size: 24px;
         }
-        
+
         .tab:hover {
             background-color: #f0f8ff;
         }
-        
+
         .tab.active {
             border-bottom: 3px solid #007bff;
             background-color: #f0f8ff;
@@ -93,74 +93,50 @@
         .content {
             display: none;
         }
-        
+
         .content.active {
             display: block;
         }
 
-        iframe, img {
-            width: 100%;
-            height: 500px;
-            border: none;
-            margin-top: 20px;
-        }
-        .logo {
-            position: absolute;
-            top: 5px; /* Moves it even closer to the top */
-            left: 10px; /* Ensures no extra left padding */
-        }
-        
-        .logo img {
-            width: 100px; /* Adjust size as needed */
-            height: 100px; /* Keep it equal for a perfect circle */
-            border-radius: 50%; /* Makes it round */
-            object-fit: cover; /* Ensures it fills the round shape properly */
-            display: block;
-        }
-        
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-          }
-      
-        
-
-        .highlight-link {
+        .view-link {
+            font-size: 20px;
+            color: #007bff;
+            text-decoration: none;
             font-weight: bold;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            padding: 3px 5px;
-            border-radius: 3px;
         }
-        
-        .highlight-link:hover {
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+
+        .view-link:hover {
+            text-decoration: underline;
         }
+
+        /* Footer Section */
+    footer {
+      background-color: red;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
     </style>
 </head>
 <body>
-    {% comment %} <div class="logo">
-        <a href="/">
-          <img src="http://127.0.0.1:8000/media/uploads/frt-removebg-preview.png" alt="Nagarik Badapatra Logo">
-        </a>
-      </div> {% endcomment %}
 
     <div class="container">
-        {% comment %} <h1>{{ page.title }}</h1> {% endcomment %}
         <div class="tabs">
             <div class="tab active" id="pdf-tab">
-                <i class="fa fa-file-pdf"></i> PDF
+                <i class="fa fa-file-pdf fa-2x"></i>
+                <span>PDF</span>
             </div>
             <div class="tab" id="image-tab">
-                <i class="fa fa-image"></i> Image
+                <i class="fa fa-image fa-2x"></i>
+                <span>Image</span>
             </div>
             <div class="dropdown">
                 <button class="tab">
-                    <i class="fa fa-download"></i> Download
+                    <i class="fa fa-download fa-2x"></i>
+                    <span>Download</span>
                 </button>
                 <div class="dropdown-content">
                     <a href="#" id="download-pdf">Download as PDF</a>
@@ -173,12 +149,11 @@
             {% for file in page.files.all %}
                 {% with file.file.url|lower as file_url %}
                     {% if file_url|slice:"-4:" == ".pdf" %}
-                        <object data="{{ file.file.url }}" type="application/pdf" width="100%" height="500px">
-                            <p class="highlight-link">Your browser does not support PDFs. 
-                                <a href="{{ file.file.url }}" target="_blank" class="highlight-link">View PDF</a> 
-                                or <a href="{{ file.file.url }}" download class="highlight-link">Download the PDF</a>.
-                            </p>
-                        </object>
+                        <p>
+                            <a href="{{ file.file.url }}" target="_blank" class="view-link">
+                                <i class="fa fa-file-pdf fa-3x"></i> Open PDF
+                            </a>
+                        </p>
                     {% endif %}
                 {% endwith %}
             {% endfor %}
@@ -188,55 +163,62 @@
             {% for file in page.files.all %}
                 {% with file.file.url|lower as file_url %}
                     {% if file_url|slice:"-4:" == ".jpg" or file_url|slice:"-4:" == ".png" or file_url|slice:"-5:" == ".jpeg" %}
-                        <img src="{{ file.file.url }}" alt="{{ file.file.name }}">
+                        <p>
+                            <a href="{{ file.file.url }}" target="_blank" class="view-link">
+                                <i class="fa fa-image fa-3x"></i> Open Image
+                            </a>
+                        </p>
                     {% endif %}
                 {% endwith %}
             {% endfor %}
         </div>
     </div>
-    
-    <script>
-        const pdfTab = document.getElementById('pdf-tab');
-        const imageTab = document.getElementById('image-tab');
-        const pdfContent = document.getElementById('pdf-content');
-        const imageContent = document.getElementById('image-content');
-
-        pdfTab.addEventListener('click', function() {
-            pdfTab.classList.add('active');
-            imageTab.classList.remove('active');
-            pdfContent.classList.add('active');
-            imageContent.classList.remove('active');
-        });
-
-        imageTab.addEventListener('click', function() {
-            imageTab.classList.add('active');
-            pdfTab.classList.remove('active');
-            imageContent.classList.add('active');
-            pdfContent.classList.remove('active');
-        });
-
-        const downloadPdfBtn = document.getElementById('download-pdf');
-        const downloadImageBtn = document.getElementById('download-image');
-
-        downloadPdfBtn.addEventListener('click', function() {
-            const pdfFileUrl = pdfContent.querySelector('object').data;
-            const link = document.createElement('a');
-            link.href = pdfFileUrl;
-            link.download = pdfFileUrl.split('/').pop(); // This sets the downloaded file name as the original file name
-            link.click(); // Trigger the download
-        });
-
-        downloadImageBtn.addEventListener('click', function() {
-            const imageFileUrl = imageContent.querySelector('img').src;
-            const link = document.createElement('a');
-            link.href = imageFileUrl;
-            link.download = imageFileUrl.split('/').pop(); // This sets the downloaded file name as the original file name
-            link.click(); // Trigger the download
-        });
-    </script>
 
     <footer>
         Copyright © 2025 Nagarik Badapatra Nepal. All Rights Reserved.
       </footer>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pdfTab = document.getElementById('pdf-tab');
+            const imageTab = document.getElementById('image-tab');
+            const pdfContent = document.getElementById('pdf-content');
+            const imageContent = document.getElementById('image-content');
+
+            pdfTab.addEventListener('click', function () {
+                pdfTab.classList.add('active');
+                imageTab.classList.remove('active');
+                pdfContent.classList.add('active');
+                imageContent.classList.remove('active');
+            });
+
+            imageTab.addEventListener('click', function () {
+                imageTab.classList.add('active');
+                pdfTab.classList.remove('active');
+                imageContent.classList.add('active');
+                pdfContent.classList.remove('active');
+            });
+
+            const downloadPdfBtn = document.getElementById('download-pdf');
+            const downloadImageBtn = document.getElementById('download-image');
+
+            downloadPdfBtn.addEventListener('click', function () {
+                const pdfFileUrl = pdfContent.querySelector('.view-link').href;
+                const link = document.createElement('a');
+                link.href = pdfFileUrl;
+                link.download = pdfFileUrl.split('/').pop();
+                link.click();
+            });
+
+            downloadImageBtn.addEventListener('click', function () {
+                const imageFileUrl = imageContent.querySelector('.view-link').href;
+                const link = document.createElement('a');
+                link.href = imageFileUrl;
+                link.download = imageFileUrl.split('/').pop();
+                link.click();
+            });
+        });
+    </script>
+
 </body>
 </html>
