@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ privacy.title }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: black;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #E45415;
+        color: white;
+    }
+
+    .logo {
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .logo img {
+      max-height: 50px;
+    }
+
+    .content-box {
+      width: 80%;
+      max-width: 800px;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      margin: 50px auto;
+    }
+
+    .content-box h2 {
+      text-align: center;
+    }
+
+    .content-box p {
+      line-height: 1.6;
+      text-align: justify;
+      white-space: pre-line; /* Ensures new lines are preserved */
+    }
+
+    footer {
+      background-color: #E45415;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+  
+    nav ul li {
+      margin-left: 20px;
+    }
+  
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.2rem;
+    }
+  
+    nav ul li a:hover {
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="/">
+        <img src="{{ privacy.logo.url }}" alt="Logo">
+      </a>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="https://forms.gle/BzW8JQUfahtb9to27" target="_blank">Order Now</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+        <li><a href="/about/">About Us</a></li> 
+      </ul>
+    </nav>
+
+  </header>
+
+  <div class="content-box">
+    <h2>{{ privacy.title }}</h2>
+    <p>{{ privacy.content|linebreaks }}</p> 
+    <!-- This ensures paragraph formatting and line breaks -->
+  </div>
+
+  <footer>
+    Copyright © 2025 Nagarik Badapatra Nepal. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

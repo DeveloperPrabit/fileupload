@@ -19,8 +19,12 @@
     }
 
     header {
-      background-color: red;
-      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #E45415;
+      color: white;
     }
 
     .logo {
@@ -78,7 +82,7 @@
     }
 
     footer {
-      background-color: red;
+      background-color: #E45415;
       color: white;
       padding: 20px 11px;
       text-align: center;
@@ -86,6 +90,27 @@
       bottom: 0;
       width: 100%;
     }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    nav ul li a:hover {
+      color: #ffcc00;
+    }
+
   </style>
 </head>
 <body>
@@ -96,15 +121,23 @@
         <img src="{{ contact.logo.url }}" alt="Nagarik Badapatra Logo">
       </a>
     </div>
+
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+        <li><a href="/about/">About Us</a></li> 
+      </ul>
+    </nav>
+    
   </header>
 
   <div class="contact-info-container">
     <div class="contact-info">
       <h2>Contact Us</h2>
-      <p>Name: {{ contact.name }}</p>
+      <p>Address: {{ contact.name }}</p>
       <p>Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
       <p>Contact: {{ contact.phone }}</p>
-      <p>WhatsApp/Call: <a href="tel:+977{{ contact.whatsapp }}">{{ contact.whatsapp }}</a></p>
     </div>
   </div>
 

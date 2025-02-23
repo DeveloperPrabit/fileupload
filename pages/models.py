@@ -26,11 +26,40 @@ class ContactInfo(models.Model):
     def __str__(self):
         return self.name
 
-# Move AboutUs class outside ContactInfo
+# # Move AboutUs class outside ContactInfo
+# class AboutUs(models.Model):
+#     title = models.CharField(max_length=200)
+#     description = models.TextField()
+#     logo = models.ImageField(upload_to='uploads/')
+#     image = models.ImageField(upload_to="about_images/", null=True, blank=True)
+
+#     def __str__(self):
+#         return self.title
+
 class AboutUs(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=255)
     description = models.TextField()
+    logo = models.ImageField(upload_to="logos/", default="logos/default_logo.png")  # Set default logo
     image = models.ImageField(upload_to="about_images/", null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+    
+    
+class TermsAndConditions(models.Model):
+    title = models.CharField(max_length=255, default="Terms & Conditions")
+    content = models.TextField()
+    logo = models.ImageField(upload_to="logos/", blank=True, null=True)  # Optional logo
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+class PrivacyPolicy(models.Model):
+    title = models.CharField(max_length=255, default="Privacy Policy")
+    content = models.TextField()
+    logo = models.ImageField(upload_to="logos/", blank=True, null=True)  # Optional logo
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

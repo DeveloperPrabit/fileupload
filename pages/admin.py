@@ -4,6 +4,10 @@ from .models import Page, File
 
 from .models import ContactInfo
 from .models import AboutUs
+from .models import TermsAndConditions, PrivacyPolicy
+
+admin.site.register(TermsAndConditions)
+admin.site.register(PrivacyPolicy)
 
 admin.site.register(AboutUs)
 

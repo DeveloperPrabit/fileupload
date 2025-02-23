@@ -33,8 +33,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px;
-      background-color: red;
-      color: black;
+      background-color: #E45415;
+      color: white;
     }
 
     .logo img {
@@ -54,7 +54,7 @@
 
     nav ul li a {
       text-decoration: none;
-      color: black;
+      color: white;
       font-size: 1.2rem;
     }
 
@@ -92,7 +92,7 @@
 
     /* Footer Section */
     footer {
-      background-color: red;
+      background-color: #E45415;
       color: white;
       padding: 10px 0;
       text-align: center;
@@ -135,7 +135,11 @@
   <header>
     <div class="logo">
       <a href="/">
-        <img src="http://127.0.0.1:8000/media/uploads/frt-removebg-preview.png" alt="Nagarik Badapatra Logo">
+        {% if logo_url %}
+          <img src="{{ logo_url }}" alt="Nagarik Badapatra Logo">
+        {% else %}
+          <img src="/static/default-logo.png" alt="Default Logo"> <!-- Provide a default logo -->
+        {% endif %}
       </a>
     </div>
     
@@ -144,6 +148,9 @@
         <li><a href="https://forms.gle/BzW8JQUfahtb9to27" target="_blank">Order Now</a></li>
         <li><a href="/contact/">Contact Us</a></li>
         <li><a href="/about/">About Us</a></li> 
+        <li><a href="/privacy/">privacy and Policy</a></li> 
+        <li><a href="/terms/">Terms and Conditions</a></li> 
+
 
       </ul>
     </nav>
@@ -151,7 +158,7 @@
 
   <div class="welcome-section">
     <h1>Welcome to Nagarik Badapatra Nepal</h1>
-    <p>Providing efficient digital solutions through QR Code Technology</p>
+    {% comment %} <p>Providing efficient digital solutions through QR Code Technology</p> {% endcomment %}
   </div>
 
   <footer>
